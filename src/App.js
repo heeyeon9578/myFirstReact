@@ -1,12 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 
-function Header(props){
-  console.log('props',props,props.title);
-  return <header>
-    <h1><a href="/">{props.title}</a></h1>
-  </header>
-}
 function Nav(props){
   const lis=[  ]
   for(let i=0; i<props.topics.length; i++){
@@ -26,6 +20,16 @@ function Article(props){
   </article>
 }
 
+function Header(props){
+  console.log('props',props,props.title);
+  return <header>
+    <h1><a href="/" onClick={function(event){
+      event.preventDefault();
+      props.onChangedMode();
+    }}>{props.title}</a></h1>
+  </header>
+}
+
 function App() {
   const topics=[
     {id:1, title:'html', body:'html is ...'},
@@ -34,7 +38,9 @@ function App() {
   ]
   return (
     <div>
-      <Header title="REACT"></Header>
+      <Header title="REACT" onChangedMode={function(){
+        alert('Header');
+      }}></Header>
       <Nav topics={topics}></Nav>
       <Article title="WELCOME" body="Hello, WEB"></Article>
     </div>
